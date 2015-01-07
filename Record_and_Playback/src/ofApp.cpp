@@ -16,7 +16,7 @@ void ofApp::setup(){
     //int nBuffers
     ofSoundStreamSetup(1, 1, this, sampleRate, LENGTH, 4);
     
-    //再生モード
+    //Playback Mode
     mode = 2;
     
     //録音、再生の位置を先頭に
@@ -31,6 +31,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+    /*
     ofSetColor(255);
     if (mode == 1) {
         //録音モードの場合、recordingの表示をして、背景を青に
@@ -44,25 +46,20 @@ void ofApp::draw(){
         ofBackground(0, 0, 0);
         ofDrawBitmapString("stopping", 10, 20);
     }
+    */
     
-    //画面の幅と録音サンプル数の比率を計算
-    //ratio is the average width(pixels) of each sample
-    int ratio = LENGTH / ofGetWidth();
+    drawRecordingProgressWithBackground();
+    drawPlaybackProgressWithBackground();
     
-    //ofLine(ofGetFrameNum() % ofGetWidth(), 200, ofGetFrameNum() % ofGetWidth(), 600);
-    //printf("Current frame: %d\n",ofGetFrameNum());
-    //画面の横幅にあわせて、波形を描画
-    ofSetColor(200 , 200, 200);
-    int pos = progressIndex/ratio;
-    //progressIndex+= ratio;
-    ofSetLineWidth(1);
-    ofLine(pos, 200, pos, 600);
-    
+    /*
+    //draw the result of 
     ofSetColor(255);
     for (int i = 0; i < LENGTH; i+=ratio){
+        //i/ratio is to make "ratios" of sample share a single line so that in total "LENGTH" samples can be drawn in the display.
         ofLine(i/ratio,ofGetHeight()/2,i/ratio,ofGetHeight()/2+buffer[i]*100.0f);
         //ofLine(i/ratio, 200, i/ratio, 600);//How to let this line run only 1 time per frame
     }
+    */
 }
 
 //オーディオ入力の処理
@@ -74,14 +71,15 @@ void ofApp::audioReceived(float * input, int bufferSize, int nChannels){
             //録音位置が設定した最大の長さに逹っしていなければ
             if(recPos<LENGTH){
                 //Bufferにサウンド入力を設定
-                buffer[recPos] = input[i];
+                recordingBuffer[recPos] = input[i];
                 //録音位置を進める
                 recPos++;
             } else {
                 //もし最大位置を越えていたら、最初に戻る(ループ録音)
                 recPos = 0;
             }
-            progressIndex = recPos;
+            //save the current recording position
+            recordingProgressIndex = recPos;
         }
     }
 }
@@ -104,7 +102,8 @@ void ofApp::audioRequested(float * output, int bufferSize, int nChannels){
                 //もし最大位置を越えていたら、最初に戻る(ループ再生)
                 playPos = 0;
             }
-            progressIndex = playPos;
+            //save the current playback position
+            playbackProgressIndex = playPos;
         }
     }
 }
@@ -125,6 +124,67 @@ void ofApp::keyPressed(int key){
         default:
             break;
     }
+}
+
+void ofApp::drawRecordingProgressWithBackground() {
+    //set Background color: Red
+    ofSetColor(255,0,0);
+    
+    //draw space for recording background in the upper half of the background
+    ofRect(0, 0, ofGetWidth(), ofGetHeight()/2);
+    
+    //draw label for "Recording"
+    ofSetColor(255);
+    ofDrawBitmapString("Recording", 10, 20);
+    
+    
+    //Draw lines for current recording position
+    ofSetColor(200 , 200, 200);
+    int pos = recordingProgressIndex/ratio;
+    //progressIndex+= ratio;
+    ofSetLineWidth(1);
+    
+    //Line for current buffer position
+    ofLine(pos, 0, pos, ofGetHeight()/2);
+    
+    //draw Waves with lines based on the recording sample data
+    ofSetColor(255);
+    for (int i = 0; i < LENGTH; i+=ratio){
+        //i/ratio is to make "ratios" of sample share a single line so that in total "LENGTH" samples can be drawn in the display.
+        ofLine(i/ratio,ofGetHeight()/2,i/ratio,ofGetHeight()/2+recordingBuffer[i]*100.0f);
+        //ofLine(i/ratio, 200, i/ratio, 600);//How to let this line run only 1 time per frame
+    }
+    
+}
+
+void ofApp::drawPlaybackProgressWithBackground() {
+    //set Background color
+    ofSetColor(0,0,255);
+    
+    //draw space for recording background in lower half of the background
+    ofRect(0, ofGetHeight()/2, ofGetWidth(), ofGetHeight()/2);
+    
+    //draw label for "recording"
+    ofSetColor(255);
+    ofDrawBitmapString("Playback", 10, 20+ofGetHeight()/2);
+    
+    //Draw lines for current recording position
+    ofSetColor(200 , 200, 200);
+    int pos = playbackProgressIndex/ratio;
+    //progressIndex+= ratio;
+    ofSetLineWidth(1);
+    
+    //Line for current buffer position
+    ofLine(pos, ofGetHeight()/2, pos, ofGetHeight());
+    
+    //draw Waves with lines based on the recording sample data
+    ofSetColor(255);
+    for (int i = 0; i < LENGTH; i+=ratio){
+        //i/ratio is to make "ratios" of sample share a single line so that in total "LENGTH" samples can be drawn in the display.
+        ofLine(i/ratio,ofGetHeight()/2,i/ratio,ofGetHeight()/2+playbackBuffer[i]*100.0f);
+        //ofLine(i/ratio, 200, i/ratio, 600);//How to let this line run only 1 time per frame
+    }
+    
 }
 
 //--------------------------------------------------------------
