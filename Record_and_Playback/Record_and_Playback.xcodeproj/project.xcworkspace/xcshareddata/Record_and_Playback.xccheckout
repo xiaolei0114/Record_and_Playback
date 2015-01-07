@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D7346A77-A3D0-419F-9570-87E029327FC9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Record_and_Playback</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E2C6339C5A9035E1DF802E489626D19D853B94A0</key>
+		<string>https://github.com/xiaolei0114/Record_and_Playback.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Record_and_Playback/Record_and_Playback.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E2C6339C5A9035E1DF802E489626D19D853B94A0</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/xiaolei0114/Record_and_Playback.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E2C6339C5A9035E1DF802E489626D19D853B94A0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E2C6339C5A9035E1DF802E489626D19D853B94A0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Record_and_Playback</string>
+		</dict>
+	</array>
+</dict>
+</plist>
