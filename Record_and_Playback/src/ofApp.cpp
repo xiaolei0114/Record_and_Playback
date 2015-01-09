@@ -8,12 +8,12 @@ void ofApp::setup(){
     sampleRate = 44100;
     
     //サウンド録音再生の初期化
-    //nOutputChannels
-    //nInputChannels,
-    //ofBaseApp * appPtr,
-    //int sampleRate,
-    //int bufferSize,
-    //int nBuffers
+    //nOutputChannels ＝ 1
+    //nInputChannels ＝ 1
+    //ofBaseApp * appPtr ＝ this
+    //int sampleRate = sampleRate
+    //int bufferSize = LENGTH
+    //int nBuffers = 4
     ofSoundStreamSetup(1, 1, this, sampleRate, LENGTH, 4);
     
     //Playback Mode
@@ -32,34 +32,9 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    /*
-    ofSetColor(255);
-    if (mode == 1) {
-        //録音モードの場合、recordingの表示をして、背景を青に
-        ofBackground(255, 0, 0);
-        ofDrawBitmapString("recording", 10, 20);
-    } else if (mode == 2) {
-        //再生モードの場合、playingの表示をして、背景を赤に
-        ofBackground(0, 0, 255);
-        ofDrawBitmapString("playing", 10, 20);
-    } else if (mode == 3 ) {
-        ofBackground(0, 0, 0);
-        ofDrawBitmapString("stopping", 10, 20);
-    }
-    */
-    
     drawRecordingProgressWithBackground();
     drawPlaybackProgressWithBackground();
     
-    /*
-    //draw the result of 
-    ofSetColor(255);
-    for (int i = 0; i < LENGTH; i+=ratio){
-        //i/ratio is to make "ratios" of sample share a single line so that in total "LENGTH" samples can be drawn in the display.
-        ofLine(i/ratio,ofGetHeight()/2,i/ratio,ofGetHeight()/2+buffer[i]*100.0f);
-        //ofLine(i/ratio, 200, i/ratio, 600);//How to let this line run only 1 time per frame
-    }
-    */
 }
 
 //オーディオ入力の処理
